@@ -1,0 +1,107 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LoanWise | Loan Prediction</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> </head>
+
+<body>
+
+<nav class="navbar"> <a href="/" class="brand"> <span class="brand-icon">L</span> <span>Loan<span class="brand-highlight">Wise</span></span> </a>
+
+<div class="nav-badge"> <span class="status-dot"></span> ML Prediction System </div> </nav>
+
+<main class="page-wrapper">
+
+<section class="hero"> <div class="hero-content"> <div class="eyebrow"> <span>✦</span> SMART FINANCIAL INSIGHTS </div>
+
+<h1>Your financial goals,<br> <span>one step closer.</span> </h1>
+
+<p class="hero-description"> Explore a machine learning prediction based on your applicant and loan information. </p>
+
+<div class="hero-features"> <div class="feature"> <span class="feature-icon">✦</span> <span>Machine Learning</span> </div>
+
+<div class="feature"> <span class="feature-icon">◈</span> <span>Instant Prediction</span> </div>
+
+<div class="feature"> <span class="feature-icon">✓</span> <span>Simple Process</span> </div> </div> </div>
+
+<div class="hero-visual" aria-hidden="true"> <div class="orbit orbit-one"></div> <div class="orbit orbit-two"></div>
+
+<div class="visual-card"> <div class="visual-card-top"> <div class="mini-logo">L</div> <span>LOAN INSIGHTS</span> <span class="visual-dots">•••</span> </div>
+
+<div class="visual-icon">↗</div>
+
+<div class="visual-title">Plan with confidence</div> <div class="visual-subtitle"> Information in. Prediction out. </div>
+
+<div class="visual-bars"> <span style="height: 35%"></span> <span style="height: 55%"></span> <span style="height: 43%"></span> <span style="height: 75%"></span> <span style="height: 60%"></span> <span style="height: 90%"></span> <span style="height: 70%"></span> <span style="height: 100%"></span> </div>
+
+<div class="visual-bottom"> <span>ML-powered learning demo</span> <span>✦</span> </div> </div>
+
+<div class="floating-chip chip-top"> <span>✦</span> Smart Analysis </div>
+
+<div class="floating-chip chip-bottom"> <span class="chip-check">✓</span> Quick Results </div> </div> </section>
+
+<section class="form-section">
+
+<div class="section-heading"> <div> <div class="section-kicker">GET STARTED</div> <h2>Applicant information</h2> <p>Fill in the details below to generate a model prediction.</p> </div>
+
+<div class="step-indicator"> <span class="step-number">01</span> <span>YOUR DETAILS</span> </div> </div>
+
+<form action="/" method="POST" class="prediction-form">
+
+<div class="form-grid">
+
+<div class="field"> <label for="ApplicantIncome"> <span class="label-icon">₹</span> Applicant income </label>
+
+<div class="input-wrapper"> <span class="input-prefix">₹</span> <input type="number" id="ApplicantIncome" name="ApplicantIncome" min="0" step="any" placeholder="e.g. 50000" value="{{ form_data.get('ApplicantIncome', '') }}" required> </div> <small>Your income in the dataset's currency units.</small> </div>
+
+<div class="field"> <label for="CoapplicantIncome"> <span class="label-icon">₹</span> Co-applicant income </label>
+
+<div class="input-wrapper"> <span class="input-prefix">₹</span> <input type="number" id="CoapplicantIncome" name="CoapplicantIncome" min="0" step="any" placeholder="e.g. 10000" value="{{ form_data.get('CoapplicantIncome', '') }}" required> </div> <small>Enter 0 if there is no co-applicant income.</small> </div>
+
+<div class="field"> <label for="LoanAmount"> <span class="label-icon">↗</span> Requested loan amount </label>
+
+<div class="input-wrapper"> <span class="input-prefix">₹</span> <input type="number" id="LoanAmount" name="LoanAmount" min="0.01" step="any" placeholder="e.g. 1500000" value="{{ form_data.get('LoanAmount', '') }}" required> </div> <small>Enter the requested amount in the same units as your dataset.</small> </div>
+
+<div class="field"> <label for="LoanAmountTerm"> <span class="label-icon">◷</span> Loan term </label>
+
+<div class="input-wrapper"> <input type="number" id="LoanAmountTerm" name="LoanAmountTerm" min="1" step="1" placeholder="e.g. 240" value="{{ form_data.get('LoanAmount_Term', '') }}" required> <span class="input-suffix">MONTHS</span> </div> <small>Enter the proposed repayment duration.</small> </div>
+
+<div class="field"> <label for="Credit_History"> <span class="label-icon">◈</span> Credit history indicator </label>
+
+<div class="select-wrapper"> <select id="CreditHistory" name="CreditHistory" required> <option value="">Select an option</option> <option value="1" {% if form_data.get('CreditHistory') == '1' %}selected{% endif %}> Positive indicator (1) </option> <option value="0" {% if form_data.get('CreditHistory') == '0' %}selected{% endif %}> Negative indicator (0) </option> </select> <span class="select-arrow">⌄</span> </div> <small>Use the coding defined by your dataset.</small> </div>
+
+<div class="field"> <label for="Employment_Status"> <span class="label-icon">▣</span> Employment status </label>
+
+<div class="select-wrapper"> <select id="EmploymentStatus" name="EmploymentStatus" required> <option value="">Select employment status</option> <option value="Employed" {% if form_data.get('EmploymentStatus') == 'Employed' %}selected{% endif %}> Employed </option> <option value="Self-Employed" {% if form_data.get('EmploymentStatus') == 'Self-Employed' %}selected{% endif %}> Self-employed </option> <option value="Unemployed" {% if form_data.get('EmploymentStatus') == 'Unemployed' %}selected{% endif %}> Unemployed </option> </select> <span class="select-arrow">⌄</span> </div> <small>Select your current employment category.</small> </div>
+
+<div class="field field-full"> <label for="Property_Area"> <span class="label-icon">⌖</span> Property area </label>
+
+<div class="select-wrapper"> <select id="PropertyArea" name="PropertyArea" required> <option value="">Select property area</option> <option value="Urban" {% if form_data.get('PropertyArea') == 'Urban' %}selected{% endif %}> Urban </option> <option value="Semiurban" {% if form_data.get('PropertyArea') == 'Semiurban' %}selected{% endif %}> Semiurban </option> <option value="Rural" {% if form_data.get('PropertyArea') == 'Rural' %}selected{% endif %}> Rural </option> </select> <span class="select-arrow">⌄</span> </div> </div>
+
+</div>
+
+<div class="form-footer"> <div class="privacy-note"> <span>ⓘ</span> Educational demonstration only. Not a real lending decision. </div>
+
+<button type="submit" class="predict-button"> <span>Generate prediction</span> <span class="button-arrow">→</span> </button> </div>
+
+</form>
+
+{% if prediction %} <div class="result-card {% if prediction == 'Likely Approved' %}result-positive{% else %}result-negative{% endif %}"> <div class="result-symbol"> {% if prediction == 'Likely Approved' %}✓{% else %}↗{% endif %} </div>
+
+<div class="result-content"> <span class="result-label">MODEL PREDICTION</span> <h3>{{ prediction }}</h3> <p> This result reflects patterns learned from the sample dataset. It does not indicate actual eligibility for a loan. </p> </div>
+
+<div class="result-decoration">✦</div> </div> {% endif %}
+
+{% if error %} <div class="error-card" role="alert"> <span>!</span> <p>{{ error }}</p> </div> {% endif %}
+
+</section>
+
+<section class="bottom-note"> <div class="bottom-icon">✦</div> <div> <h3>Built with machine learning</h3> <p> Powered by Python, Flask and a Random Forest classification pipeline. Predictions are for educational use only. </p> </div> </section>
+
+<footer class="site-footer"> <a href="/" class="footer-brand">LoanWise</a> <span>Student Machine Learning Project</span> <span>Designed for learning · Not financial advice</span> </footer>
+
+</main>
+
+</body> </html>
